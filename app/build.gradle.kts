@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")//For dagger
+    id("com.google.devtools.ksp")//For using ksp
 }
 
 android {
@@ -68,7 +70,15 @@ dependencies {
     implementation(project(":retrofit_module"))
     implementation(project(":database_module"))
     implementation(project(":dataStore_module"))
-    val room_version = "2.6.0"
 
+    //for room module
+    val room_version = "2.6.0"
     implementation("androidx.room:room-runtime:$room_version")
+
+    //For Dagger Hilt
+    var hilt_version = "2.47"
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    ksp("com.google.dagger:dagger-compiler:2.47") // Dagger compiler
+    ksp("com.google.dagger:hilt-compiler:2.47")   // Hilt compiler
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 }

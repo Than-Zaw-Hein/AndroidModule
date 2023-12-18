@@ -18,10 +18,16 @@ import com.tzh.database_module.data.entity.TestEntity
 import com.tzh.datastore_module.SharePreferenceHelper
 import com.tzh.retrofit_module.ApiClient
 import com.tzh.retrofit_module.RetrofitConstant
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     lateinit var appDataBase: AppDataBase
+
+    @Inject
+    lateinit var userClass: UserClass
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,7 @@ class MainActivity : ComponentActivity() {
                 myDao.insertData(data)
                 Log.e("DATA", myDao.getAllTestData().toString())
                 Log.e("TEST API URL", sharePreferenceHelper.apiUrl.toString())
+                Log.e("TEST API URL", userClass.baseData)
             } catch (e: Exception) {
                 Log.e("Error", e.message.toString())
             }
@@ -57,8 +64,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "Hello $name!", modifier = modifier
     )
 }
 
